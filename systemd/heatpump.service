@@ -1,0 +1,10 @@
+[Unit]
+Description=Heatpump
+
+[Service]
+WorkingDirectory=/home/pi/heatpump
+Environment="SERVER_SETTINGS=config.py" "FLASK_APP=server.py"
+ExecStart=/usr/bin/python -m flask run -p 80 -h '0.0.0.0'
+
+[Install]
+WantedBy=multi-user.target
