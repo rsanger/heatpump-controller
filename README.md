@@ -1,7 +1,7 @@
 # Mitsubishi Heat Pump Controller
 ## Introduction
 
-A python class for controlling a Mitsubishi MSZ-GA60VA heat pump using inferred via the Linux kernel's LIRC device interface.
+A python class for controlling a Mitsubishi MSZ-GA60VA heat pump using infrared via the Linux kernel's LIRC device interface.
 
 
 I'm using this on a raspberry pi with a IR transceiver. Then exposing as an amazon alexa device to enable voice control.

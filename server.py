@@ -155,7 +155,7 @@ def set():
     if 'wide_vane' in data:
         pump.wide_vane = data['wide_vane']
     if 'fan_speed' in data:
-        pump.fan_speed = pump.set_fan(data['fan_speed'])
+        pump.set_fan(data['fan_speed'])
     if 'vane' in data:
         pump.vane = data['vane']
     if 'clock' in data:
