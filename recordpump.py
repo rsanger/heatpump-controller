@@ -27,18 +27,18 @@ def decode(values):
         hp = HeatPump()
         last = cur
         try:
-                print len(values)
+                print(len(values))
                 cur = HeatPump.decode(values)
         except:
                 return
-        print "Done it!!!!!!!!!"
-        print cur
+        print("Done it!!!!!!!!!")
+        print(cur)
         try:
                 hp.load_bytes(cur)
         except Exception as e:
-                print e
-                print "Failed decode"
-        print str(z)
+                print(e)
+                print("Failed decode")
+        print(str(hp))
 
 while True:
         s_res = select.select([f], [], [], 0.1)
@@ -49,12 +49,12 @@ while True:
                 as_int = struct.unpack('i', bytes)[0]
                 as_int = as_int & PULSE_MASK
                 if as_int > 1000000:
-                        print "biff"
+                        print("biff")
                         continue
-                #print as_int, len(grabbed)
+                #print(as_int, len(grabbed))
                 grabbed.append(as_int)
                 if len(grabbed) == 583:
-                        print "good good"
+                        print("good good")
                         decode(grabbed)
                         grabbed = []
         else: # timeout

@@ -98,7 +98,7 @@ class HeatPump(object):
         # BYTE 10 CLOCK
         if self.clock == "auto":
             t = time.localtime()
-            ret.append(t.tm_hour*6+t.tm_min/10)
+            ret.append(t.tm_hour*6+t.tm_min//10)
         else:
             assert self.clock >=0 and self.clock <= 143
             ret.append(self.clock)
@@ -355,7 +355,7 @@ class HeatPump(object):
         if value == "auto":
             return value
         assert value >= 0 and value <= 143
-        return str(value / 6) + ":" + str((value%6)*10)
+        return str(value // 6) + ":" + str((value%6)*10)
 
     def __str__(self):
         ret = "Heat Pump on: " + str(self.on)

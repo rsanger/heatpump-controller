@@ -93,7 +93,7 @@ class TestLoad(unittest.TestCase):
             self.assertEqual(self.decoded[key], state[key])
 
     def test_offset_decode(self):
-        """ Cut of the start, check we can find it part way through """
+        """ Cut off the start, check we can find it part way through """
         as_ints = HeatPump.decode(self.timings[123:])
         self.assertListEqual(as_ints, self.byte_codes)
         hp = HeatPump()

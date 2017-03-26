@@ -23,7 +23,10 @@ import threading
 import select
 import json
 import struct
-import urllib2
+try:
+   import urllib2
+except:
+   import urllib.request as urllib2
 try:
    import cPickle as pickle
 except:
