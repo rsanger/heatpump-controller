@@ -70,14 +70,14 @@ class HeatPump(object):
         # BYTE 5 Next ON/OFF
         ret.append(0x20 if self.on else 0x0)
         # BYTE 6 HVAC MODE and isee
-        hvac = {"auto": 0x20, "heat": 0x08, "dry": 0x10, "cold": 0x18}[self.hvac_mode]
+        hvac = {"auto": 0x20, "heat": 0x08, "dry": 0x10, "cool": 0x18}[self.hvac_mode]
         ret.append((0x40 if self.isee else 0x0) | hvac)
         # BYTE 7 Temperature
         assert self.temp >= 16 and self.temp <= 31
         ret.append(self.temp-16)
         # BYTE 8 HVAC MODE round 2 and WIDE VANE
         # Difference auto is a 0x06 not 0x00 as listed
-        hvac = {"auto": 0x06, "heat": 0x00, "dry": 0x2, "cold": 0x06}[self.hvac_mode]
+        hvac = {"auto": 0x06, "heat": 0x00, "dry": 0x2, "cool": 0x06}[self.hvac_mode]
         # For ours swing is 0xC0 and sides are 0x80
         wide_vane = {"leftend": 0x10, "left": 0x20, "middle": 0x30, "right": 0x40, "rightend": 0x50, "sides": 0x80, "swing": 0xC0}[self.wide_vane]
         ret.append(hvac|wide_vane)
@@ -292,7 +292,7 @@ class HeatPump(object):
         # BYTE 6 - HVAC MODE/ I-SEE
         assert 0x78 & values[6] == values[6]
         self.isee = True if values[6] & 0x40 else False
-        self.hvac_mode = {0x20: "auto", 0x08: "heat", 0x10: "dry", 0x18: "cold"}[values[6]&0x38]
+        self.hvac_mode = {0x20: "auto", 0x08: "heat", 0x10: "dry", 0x18: "cool"}[values[6]&0x38]
 
         # BYTE 7 - TEMPERATURE
         assert 0x0f & values[7] == values[7]
@@ -301,7 +301,7 @@ class HeatPump(object):
         # BYTE 8 HVAC MODE
         assert 0xf7 & values[8] == values[8]
         self.wide_vane = {0x10: "leftend", 0x20: "left", 0x30: "middle", 0x40: "right", 0x50: "rightend", 0x80: "sides", 0xC0: "swing"}[values[8]&0xF0]
-        assert self.hvac_mode in {0x00: ("heat",), 0x2: ("dry",), 0x06: ("cold", "auto")}[values[8]&0x07]
+        assert self.hvac_mode in {0x00: ("heat",), 0x2: ("dry",), 0x06: ("cool", "auto")}[values[8]&0x07]
 
         # BYTE 9
         fan_speed = values[9] & 0x07
